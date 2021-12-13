@@ -9,7 +9,7 @@ import java.util.StringTokenizer;
 public class B17352 {
     static int[] parent;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException { 
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(bf.readLine());
         int N = Integer.parseInt(st.nextToken());
