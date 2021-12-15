@@ -5,11 +5,9 @@ import java.util.HashMap;
 
 public class P_뉴스클러스터링 {
     public static void main(String[] args) {
-        char a = 'A';
-        char b = 'Z';
-        System.out.println(Integer.valueOf(a) + " " + Integer.valueOf(b));
+        System.out.println(solution("aa1+aa2","AAAA12"));
     }
-    public int solution(String str1, String str2) {
+    static public int solution(String str1, String str2) {
         int answer = 0;
         str1 = str1.toUpperCase();
         str2 = str2.toUpperCase();
@@ -26,12 +24,12 @@ public class P_뉴스클러스터링 {
             }
         }
         ArrayList<String> str1Parse = new ArrayList<>();
-        for(int i = 0 ; i < stb1.toString().toCharArray().length - 1; i++){
-            str1Parse.add(stb1.toString().toCharArray()[i]+""+stb1.toString().toCharArray()[i+1]+"");
+        for(int i = 0 ; i < str1.toString().toCharArray().length - 1; i++){
+            str1Parse.add(str1.toString().toCharArray()[i]+""+str1.toString().toCharArray()[i+1]+"");
         }
         HashMap<String, Integer> hm1 = new HashMap<>();
         for (String str : str1Parse) {
-            hm1.put(str, hm1.getOrDefault(str, 1));
+            hm1.put(str, hm1.getOrDefault(str, 0) +1);
         }
 
         ArrayList<String> str2Parse = new ArrayList<>();
@@ -40,11 +38,27 @@ public class P_뉴스클러스터링 {
         }
         HashMap<String, Integer> hm2 = new HashMap<>();
         for (String str : str2Parse) {
-            hm2.put(str, hm2.getOrDefault(str, 1));
+            hm2.put(str, hm2.getOrDefault(str, 0) +1);
         }
 
-
-
-        return answer;
+        int same = 0;
+        for (String str : hm1.keySet()) {
+            if(hm2.containsKey(str)){
+                same += Math.min(hm1.get(str), hm2.get(str));
+            }
+        }
+        int sum = 0;
+        for (String str : hm1.keySet()) {
+            if (hm2.containsKey(str)) {
+                sum += Math.max(hm1.get(str), hm2.get(str));
+                hm2.remove(str);
+            }else{
+                sum++;
+            }
+        }
+        for (String str : hm2.keySet()) {
+            sum += hm2.get(str);
+        }
+        return (int)(((double)same/(double)sum)*65536.0);
     }
 }
