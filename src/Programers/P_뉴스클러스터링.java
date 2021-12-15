@@ -1,6 +1,7 @@
 package Programers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class P_뉴스클러스터링 {
     public static void main(String[] args) {
@@ -28,28 +29,22 @@ public class P_뉴스클러스터링 {
         for(int i = 0 ; i < stb1.toString().toCharArray().length - 1; i++){
             str1Parse.add(stb1.toString().toCharArray()[i]+""+stb1.toString().toCharArray()[i+1]+"");
         }
+        HashMap<String, Integer> hm1 = new HashMap<>();
+        for (String str : str1Parse) {
+            hm1.put(str, hm1.getOrDefault(str, 1));
+        }
+
         ArrayList<String> str2Parse = new ArrayList<>();
         for(int i = 0 ; i < stb2.toString().toCharArray().length - 1; i++){
             str2Parse.add(stb2.toString().toCharArray()[i]+""+stb2.toString().toCharArray()[i+1]+"");
         }
-        int same = 0;
-        int sum = 0;
-        boolean[] visit = new boolean[str2Parse.size()];
-        for (String s1 : str1Parse) {
-            int index = 0;
-            for (String s2 : str2Parse) {
-                if(s1.equals(s2)){
-                    if(visit[index]){
-
-                    }else{
-                        visit[index] = true;
-                        same++;
-                        sum++;
-                    }
-                }
-                index ++;
-            }
+        HashMap<String, Integer> hm2 = new HashMap<>();
+        for (String str : str2Parse) {
+            hm2.put(str, hm2.getOrDefault(str, 1));
         }
+
+
+
         return answer;
     }
 }
