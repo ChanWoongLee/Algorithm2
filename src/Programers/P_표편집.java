@@ -34,10 +34,10 @@ public class P_표편집 {
                     nowNode.prev.next = nowNode.next;
                     nowNode.next.prev = nowNode.prev;
                 }
+                nodes.remove(nowIdx);
                 if (nowIdx == nodes.size()-1) {
                     nowIdx -= 1;
                 }
-                nodes.remove(nowIdx);
             } else if (str.equals("Z")) {
                 Node nowNode = stack.pop();
                 int addIdx = nodes.indexOf(nowNode.prev) +1;
