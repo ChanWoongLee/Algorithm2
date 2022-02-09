@@ -40,7 +40,12 @@ public class P_표편집 {
                 }
             } else if (str.equals("Z")) {
                 Node nowNode = stack.pop();
-                int addIdx = nodes.indexOf(nowNode.prev) +1;
+                int addIdx;
+                if(nowNode.value == 0){
+                    addIdx =0;
+                }else{
+                    addIdx= nodes.indexOf(nowNode.prev) +1;
+                }
                 if (addIdx ==  nodes.size()) {
                     nowNode.prev.next = nowNode;
                 }else if(addIdx == 0){
