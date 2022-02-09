@@ -3,7 +3,7 @@ package test;
 public class Kakao_2021_2 {
 
     public static void main(String[] args) {
-        System.out.println(solution(110011, 10));
+        System.out.println(solution(110000, 10));
     }
 
     static public int solution(int n, int k) {
@@ -11,14 +11,17 @@ public class Kakao_2021_2 {
         String num = trans(n, k);
         int left = 0;
 
-        String[] parseNum = num.split("0");
+ /*       String[] parseNum = num.split("0");
         for(String parse : parseNum){
-            System.out.println(parse);
-        }
+            if(!parse.equals("") && isPrime(Long.parseLong(parse))) {
+                ++answer;
+            }
+        }*/
 
         for(int i = 0; i < num.length(); i++) {
             if( num.charAt(i) == '0' && i != left){
                 long part = Long.parseLong(num.substring(left, i));
+                System.out.println(left + " "  + i);
                 answer = isPrime(part) ? answer+1 : answer;
                 left = i+1;
             }
