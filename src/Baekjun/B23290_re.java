@@ -6,9 +6,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.StringTokenizer;
-import java.util.stream.Collectors;
 
-public class B23290 {
+public class B23290_re {
     // 2:35
     static int[] dr2 = {-1, 0, 1, 0};
     static int[] dc2 = {0, -1, 0, 1};
@@ -18,18 +17,28 @@ public class B23290 {
     static int N = 4;
     static int maxFish;
     static ArrayList<Integer> maxHistory;
-    static ArrayList<Fish> fishs;
+    static ArrayList<Fish>[][] fishs;
 
     public static void main(String[] args) throws IOException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(bf.readLine());
         int fishNum = Integer.parseInt(st.nextToken());
         int count = Integer.parseInt(st.nextToken());
-        fishs = new ArrayList<>();
+        fishs = new ArrayList[4][4];
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                fishs[i][j] = new ArrayList<>();
+            }
+        }
+
         for (int i = 0; i < fishNum; i++) {
             st = new StringTokenizer(bf.readLine());
-            fishs.add(new Fish(Integer.parseInt(st.nextToken()) - 1, Integer.parseInt(st.nextToken()) - 1, Integer.parseInt(st.nextToken())));
+            int r = Integer.parseInt(st.nextToken()) - 1;
+            int c = Integer.parseInt(st.nextToken()) - 1;
+            int dir = Integer.parseInt(st.nextToken());
+            fishs[r][c].add(new Fish(r, c, dir));
         }
+
         st = new StringTokenizer(bf.readLine());
         int sharkR = Integer.parseInt(st.nextToken()) - 1;
         int sharkC = Integer.parseInt(st.nextToken()) - 1;
@@ -78,16 +87,11 @@ public class B23290 {
     }
 
     static void move(int sharkR, int sharkC) {
-        int[][] fish = new int[4][4];
-        for (Fish f : fishs) {
-            fish[f.r][f.c]++;
-        }
         maxFish = 0;
-        maxHistory = new ArrayList<>(Arrays.asList(9, 9, 9));
-        dfs(0, 0, sharkR, sharkC, new ArrayList<>(), fish);
+        dfs(0, 0, sharkR, sharkC, new ArrayList<>(), fishs);
     }
 
-    static void dfs(int cnt, int fishCnt, int r, int c, ArrayList<Integer> history, int[][] fish) {
+    static void dfs(int cnt, int fishCnt, int r, int c, ArrayList<Integer> history, ArrayList<Fish>[][] f) {
         if (cnt == 3) {
             if (maxFish <= fishCnt) {
                 if (maxFish == fishCnt) {
@@ -101,9 +105,11 @@ public class B23290 {
                     }
                     if (Integer.valueOf(nowHistoryStr.toString()) < Integer.valueOf(maxHistoryStr.toString())) {
                         maxHistory = new ArrayList<Integer>(history);
+                        fishs = f;
                     }
                 } else {
                     maxHistory = new ArrayList<Integer>(history);
+                    fishs = f;
                 }
                 maxFish = fishCnt;
             }
@@ -116,14 +122,19 @@ public class B23290 {
             if (nextR >= N || nextC >= N || nextR < 0 || nextC < 0) {
                 continue;
             }
-            int nextFishCnt = fishCnt + fish[nextR][nextC];
-            int[][] temp = new int[4][4];
+
+            int nextFishCnt = fishCnt + f[nextR][nextC].size();
+            ArrayList<Fish>[][] temp = new ArrayList[4][4];
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 4; j++) {
-                    temp[i][j] = fish[i][j];
+                    temp[i][j] = new ArrayList<>();
+                    if (nextR == i && nextC == j)
+                        continue;
+                    for (Fish fish : f[i][j]) {
+                        temp[i][j].add(new Fish(fish.r, fish.c, fish.dir));
+                    }
                 }
             }
-            temp[nextR][nextC] = 0;
 
             history.add(move);
             dfs(cnt + 1, nextFishCnt, nextR, nextC, history, temp);
@@ -132,25 +143,29 @@ public class B23290 {
     }
 
     static void copy(ArrayList<Fish> copy, int sharkR, int sharkC) {
-        for (Fish f : fishs) {
-            copy.add(new Fish(f.r, f.c, f.dir));
-            for (int move = 0; move <= 8; move++) {
-                int nowDir = f.dir - move <= 0 ? f.dir - move + 8 : f.dir - move;
-                int nextR = f.r + dr[nowDir];
-                int nextC = f.c + dc[nowDir];
-                if (nextR >= N || nextC >= N || nextR < 0 || nextC < 0) {
-                    continue;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                for (Fish f : fishs[i][j]) {
+                    copy.add(new Fish(f.r, f.c, f.dir));
+                    for (int move = 0; move <= 8; move++) {
+                        int nowDir = f.dir - move <= 0 ? f.dir - move + 8 : f.dir - move;
+                        int nextR = f.r + dr[nowDir];
+                        int nextC = f.c + dc[nowDir];
+                        if (nextR >= N || nextC >= N || nextR < 0 || nextC < 0) {
+                            continue;
+                        }
+                        if (nextR == sharkR && nextC == sharkC) {
+                            continue;
+                        }
+                        if (smell[nextR][nextC] > 0) {
+                            continue;
+                        }
+                        f.r = nextR;
+                        f.c = nextC;
+                        f.dir = nowDir;
+                        break;
+                    }
                 }
-                if (nextR == sharkR && nextC == sharkC) {
-                    continue;
-                }
-                if (smell[nextR][nextC] > 0) {
-                    continue;
-                }
-                f.r = nextR;
-                f.c = nextC;
-                f.dir = nowDir;
-                break;
             }
         }
     }
