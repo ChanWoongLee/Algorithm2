@@ -46,7 +46,6 @@ public class B23290 {
             for (Fish f : copy) {
                 fishs.add(new Fish(f.r, f.c, f.dir));
             }
-            System.out.println();
         }
         System.out.println(fishs.size());
 
@@ -59,11 +58,9 @@ public class B23290 {
             sharkC += dc2[dir];
             map[sharkR][sharkC] = true;
         }
-        double start = System.currentTimeMillis();
         for (int i = 0; i < fishs.size(); i++) {
-            Fish f = fishs.get(i);
-            int nowR = f.r;
-            int nowC = f.c;
+            int nowR = fishs.get(i).r;
+            int nowC = fishs.get(i).c;
             if (map[nowR][nowC]) {
                 fishs.remove(i);
                 smell[nowR][nowC] = 3;
@@ -92,11 +89,11 @@ public class B23290 {
             if (maxFish <= fishCnt) {
                 if (maxFish == fishCnt) {
                     StringBuffer nowHistoryStr = new StringBuffer();
-                    for (Integer h : history) {
+                    for(Integer h : history){
                         nowHistoryStr.append(h);
                     }
                     StringBuffer maxHistoryStr = new StringBuffer();
-                    for (Integer h : maxHistory) {
+                    for(Integer h : maxHistory){
                         maxHistoryStr.append(h);
                     }
                     if (Integer.valueOf(nowHistoryStr.toString()) < Integer.valueOf(maxHistoryStr.toString())) {
