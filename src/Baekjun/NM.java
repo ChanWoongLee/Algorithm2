@@ -6,7 +6,7 @@ public class NM {
         dfs1(0, 0, 3, "");
         System.out.println("중복조합");
         dfs2(0, 0, 3, "");
-        System.out.println("순열");
+        System.out.println("순열1");
         dfs3(0, 0, 3, "");
         System.out.println("순열조합");
         dfs4(0, 0, 3, "");
