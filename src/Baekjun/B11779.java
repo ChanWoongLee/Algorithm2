@@ -35,13 +35,15 @@ public class B11779 {
         boolean[] visit = new boolean[n + 1];
         int[] dist = new int[n + 1];
         Arrays.fill(dist, Integer.MAX_VALUE);
-        visit[start] = true;
         route[start] = 0;
         dist[start] = 0;
         PriorityQueue<Node> pq = new PriorityQueue<>((a, b) -> a.value - b.value);
         pq.add(new Node(start, 0));
         while (!pq.isEmpty()) {
             Node now = pq.poll();
+
+            if(!visit[now.node]) visit[now.node] = true;
+            else continue;
 
             for (int i = 1; i < n + 1; i++) {
                 if (dist[i] > now.value + map[now.node][i]) {
