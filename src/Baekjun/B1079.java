@@ -30,24 +30,35 @@ public class B1079 {
         st = new StringTokenizer(bf.readLine());
         me = Integer.parseInt(st.nextToken());
         boolean[] visit = new boolean[N];
-        dfs(0, visit);
+        dfs(0, visit, N % 2 == 0);
         System.out.println(ans);
     }
 
-    static void dfs(int day, boolean[] visit) {
+    static void dfs(int day, boolean[] visit, boolean isNight) {
         ans = Math.max(day, ans);
         if (visit[me])
             return;
 
-        for (int i = 0; i < N; i++) {
-            if (i == me || visit[i])
-                continue;
+        if (isNight) {
 
-            visit[i] = true;
+            for (int i = 0; i < N; i++) {
+                if (i == me || visit[i])
+                    continue;
+                visit[i] = true;
+                for (int s = 0; s < N; s++) {
+                    score[s] += info[i][s];
+                }
+                dfs(day + 1, visit, !isNight);
+                visit[i] = false;
+                for (int s = 0; s < N; s++) {
+                    score[s] -= info[i][s];
+                }
+            }
+
+        } else {
             int maxScore = Integer.MIN_VALUE;
             int maxIndex = 0;
             for (int s = 0; s < N; s++) {
-                score[s] += info[i][s];
                 if (visit[s]) {
                     continue;
                 }
@@ -57,13 +68,12 @@ public class B1079 {
                 }
             }
             visit[maxIndex] = true;
-            dfs(day + 1, visit);
-            visit[i] = false;
+            dfs(day, visit, !isNight);
             visit[maxIndex] = false;
-            for (int s = 0; s < N; s++) {
-                score[s] -= info[i][s];
-            }
         }
+
+
+
     }
 }
 
