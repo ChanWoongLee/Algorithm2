@@ -16,6 +16,7 @@ public class Dev_2 {
     static int answer = 0;
 
     static public int solution(String[] grid) {
+
         map = new String[grid.length][grid[0].length()];
         pos = new ArrayList<>();
         int maxCnt = 0;
