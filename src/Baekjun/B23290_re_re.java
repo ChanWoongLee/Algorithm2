@@ -56,7 +56,7 @@ public class B23290_re_re {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (smell[i][j] > 0)
-                    smell[i][j]--;
+                    smell[i][j]-- ;
             }
         }
     }
