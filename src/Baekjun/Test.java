@@ -1,19 +1,21 @@
 package Baekjun;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Test {
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        for(int i = N; i>0; i--) {
-            for (int j = 0; j < i; j++) {
-                System.out.print("＊");
+        System.out.println("a".compareTo("b"));
+        ArrayList<Integer> ar = new ArrayList<>(Arrays.asList(1,2,3,4,2,3,2));
+        for (int i = 0; i < ar.size(); i++) {
+            if(ar.get(i) != 10){
+                ar.remove(i);
+                i--;
             }
-            System.out.println();
         }
+        ar.stream().forEach(System.out::print);
     }
 
     static class T{
