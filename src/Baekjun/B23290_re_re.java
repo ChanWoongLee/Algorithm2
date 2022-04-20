@@ -45,14 +45,6 @@ public class B23290_re_re {
             copy = move(shark);
             maxFishCnt = 0;
             maxFishMove = new ArrayList<>();
-
-        /*    System.out.println();
-            for (int x = 0; x < 4; x++) {
-                for (int y = 0; y < 4; y++) {
-                    System.out.print(fishMap[x][y]);
-                }
-                System.out.println();
-            }*/
             moveShark(shark, 0, 3, new ArrayList<>());
             dead = new boolean[4][4];
             for (int move : maxFishMove) {
