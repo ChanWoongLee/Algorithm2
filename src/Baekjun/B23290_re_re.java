@@ -25,7 +25,7 @@ public class B23290_re_re {
         int fishNum = Integer.parseInt(st.nextToken());
         int count = Integer.parseInt(st.nextToken());
         fishs = new ArrayList<>(); // 물고기 전체 관리
-        smell = new int[4][4];
+        smell = new int[4][4]; // 냄새 관리
 
 
         for (int i = 0; i < fishNum; i++) {
@@ -97,8 +97,6 @@ public class B23290_re_re {
                 maxFishCnt = fishCnt;
                 maxFishMove.clear();
                 maxFishMove.addAll(save);
-                //System.out.println(fishCnt + " ");
-                //maxFishMove.stream().forEach(System.out::print);
             }
             return;
         }
