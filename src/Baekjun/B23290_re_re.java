@@ -58,7 +58,7 @@ public class B23290_re_re {
                 Fish fish = fishs.get(f);
                 if(dead[fish.y][fish.x]){
                     smell[fish.y][fish.x] = 3;
-                    fishs.remove(f);
+                    fishs.remove(f) ;
                     f--;
                 }
             }
