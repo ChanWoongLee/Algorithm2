@@ -6,10 +6,10 @@ public class NM {
         dfs1(0, 0, 3, "");
         System.out.println("중복조합");
         dfs2(0, 0, 3, "");
-        System.out.println("순열1");
-        dfs3(0, 0, 3, "");
-        System.out.println("순열조합");
-        dfs4(0, 0, 3, "");
+        System.out.println("순열");
+        dfs3(0, 3, "");
+        System.out.println("중복 순열");
+        dfs4(0, 3, "");
     }
 
     // 조합
@@ -40,7 +40,7 @@ public class NM {
     }
     // 순열
     static boolean[] visit = new boolean[4];
-    static void dfs3(int index,int cnt, int maxCnt, String str){
+    static void dfs3(int cnt, int maxCnt, String str){
         if (cnt == maxCnt) {
             System.out.println(str);
             return;
@@ -52,12 +52,12 @@ public class NM {
                 continue;
             }
             visit[i]=true;
-            dfs3(index+1,cnt+1,maxCnt,temp+i);
+            dfs3(cnt+1,maxCnt,temp+i);
             visit[i] = false;
         }
     }
     // 순열 조합
-    static void dfs4(int index,int cnt, int maxCnt, String str){
+    static void dfs4(int cnt, int maxCnt, String str){
         if (cnt == maxCnt) {
             System.out.println(str);
             return;
@@ -65,7 +65,7 @@ public class NM {
 
         for(int i = 0; i < 4; i++){
             String temp = str;
-            dfs4(index,cnt+1,maxCnt,temp+i);
+            dfs4(cnt+1,maxCnt,temp+i);
         }
     }
 }
