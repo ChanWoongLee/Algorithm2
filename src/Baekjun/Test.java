@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class Test {
 
     public static void main(String[] args) {
+        System.out.println(String.format("%s", "wer"));
         System.out.println("a".compareTo("b"));
         ArrayList<Integer> ar = new ArrayList<>(Arrays.asList(1,2,3,4,2,3,2));
         for (int i = 0; i < ar.size(); i++) {
